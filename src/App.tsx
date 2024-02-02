@@ -10,6 +10,7 @@ function App() {
       element: <HomePage />,
     },
   ]);
+
   return (
     <LttContextProvider>
       <RouterProvider router={router} />
