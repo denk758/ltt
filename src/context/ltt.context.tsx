@@ -1,26 +1,27 @@
 import React, { PropsWithChildren, createContext } from "react";
-import { getResponses } from "../utils/responses.util";
+import { responses } from "../constants/responses";
 
-interface LttContextProviderProps extends PropsWithChildren { }
+interface LttContextProviderProps extends PropsWithChildren {}
 
 interface LttContextProps {
-  getQuote: (prompt: string) => Promise<string>;
+  getQuote: () => string;
 }
 
 export const LttContext = createContext<LttContextProps>({} as LttContextProps);
 
-export const LttContextProvider: React.FC<LttContextProviderProps> = (props) => {
+export const LttContextProvider: React.FC<LttContextProviderProps> = (
+  props
+) => {
   const { children } = props;
-  const responses = getResponses();
-  const getQuote = async (prompt: string) => {
+  const getQuote = () => {
+    const quote = responses[Math.floor(Math.random() * responses.length)];
+    return quote;
+  };
 
-    return Promise.resolve("result")
-  }
- 
   return (
     <LttContext.Provider
       value={{
-        getQuote
+        getQuote,
       }}
     >
       {children}
